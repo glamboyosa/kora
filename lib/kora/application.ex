@@ -30,6 +30,23 @@ defmodule Kora.Application do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
     opts = [strategy: :one_for_one, name: Kora.Supervisor]
+
+    # Print port for Tauri sidecar handshake
+    # We do this in a task to ensure it runs after endpoint startup
+    Task.start(fn ->
+      # Give endpoint a moment to bind
+      Process.sleep(1000)
+
+      case KoraWeb.Endpoint.http_info() do
+        {:ok, info} ->
+          port = info[:port]
+          IO.puts("KORA_PORT=#{port}")
+
+        _ ->
+          :ok
+      end
+    end)
+
     Supervisor.start_link(children, opts)
   end
 
