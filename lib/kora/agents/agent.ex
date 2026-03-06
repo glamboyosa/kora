@@ -1,0 +1,50 @@
+defmodule Kora.Agents.Agent do
+  use Ecto.Schema
+  import Ecto.Changeset
+
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
+
+  schema "agents" do
+    field :name, :string
+    field :model, :string
+    field :status, Ecto.Enum, values: [:waiting, :running, :done, :failed], default: :waiting
+    field :system_prompt, :string
+    field :goal, :string
+    field :context, :string
+    field :tools, {:array, :string}, default: []
+    field :result, :string
+    field :error, :string
+    field :started_at, :utc_datetime_usec
+    field :completed_at, :utc_datetime_usec
+
+    belongs_to :session, Kora.Sessions.Session
+    belongs_to :parent, Kora.Agents.Agent, foreign_key: :parent_id
+    has_many :children, Kora.Agents.Agent, foreign_key: :parent_id
+    has_many :messages, Kora.Messages.Message
+    has_many :tool_results, Kora.ToolResults.ToolResult
+    has_many :cost_entries, Kora.CostLedger.CostEntry
+
+    timestamps(type: :utc_datetime_usec)
+  end
+
+  def changeset(agent, attrs) do
+    agent
+    |> cast(attrs, [
+      :session_id,
+      :parent_id,
+      :name,
+      :model,
+      :status,
+      :system_prompt,
+      :goal,
+      :context,
+      :tools,
+      :result,
+      :error,
+      :started_at,
+      :completed_at
+    ])
+    |> validate_required([:session_id, :name, :model, :status, :goal])
+  end
+end

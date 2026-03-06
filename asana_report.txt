@@ -1,0 +1,22 @@
+# Asana: Research Report
+
+## Target Users and Demographics
+- **Target Audience:** Built for any team—from early-stage startups to the largest global corporations. Asana is utilized by over 169,000 businesses across 200+ countries, including over 85% of Fortune 100 companies.
+- **Demographics:** Instead of focusing on traditional consumer demographics, Asana targets organizational roles. The software appeals to project managers, department heads, agile teams, and executives. 
+- **Use Cases:** It is designed for cross-functional teams spanning operations, marketing, human resources, IT, sales, and product design. Whether an individual needs to track personal to-dos, or an enterprise needs to align daily operations with company-wide strategic initiatives, Asana scales to fit those requirements.
+
+## Main Features
+Asana goes beyond basic to-do lists, providing comprehensive work management capabilities powered by its proprietary **Work Graph® data model**.
+- **Project & Task Management:** Granular task assignments, subtasks, due dates, milestones, and task dependencies.
+- **Multiple Work Views:** Projects can be visualized in List, Kanban Board, Calendar, and Timeline (Gantt chart) views, allowing individuals to work the way they prefer.
+- **Goals & Strategic Planning:** Features that allow executives to set company-wide objectives and OKRs, aligning daily tasks with larger organizational goals.
+- **Workflow Automation:** Custom rule builders to automate repetitive actions, process intake forms, and route task approvals without manual intervention.
+- **Reporting & Portfolios:** Real-time dashboards, workload management tracking to prevent team burnout, and high-level Portfolio views observing progress across multiple projects simultaneously.
+- **Integrations:** Extensive integrations with the modern tech stack, including Google Workspace, Microsoft 365, Slack, Salesforce, Jira, and Zoom.
+
+## Current Pricing
+Asana currently sets its pricing across several distinct tiers tailored to team size and complexity:
+- **Personal:** $0 (Free forever). Geared toward individuals and very small endeavors, allowing up to 2 users to collaborate on simple tasks and projects.
+- **Starter:** $10.99 per user/month (billed annually) or $13.49 per user/month (billed monthly). Introduces timelines, custom fields, advanced search, and more powerful project capabilities.
+- **Advanced:** $24.99 per user/month (billed annually) or $30.49 per user/month (billed monthly). Designed for companies that need goals tracking, portfolio management, advanced workflow automations, and workload monitoring.
+- **Enterprise & Enterprise+:** Custom pricing. Focuses on advanced security features, data loss prevention, HIPAA compliance, custom branding, and granular administrative controls for the largest organizations.

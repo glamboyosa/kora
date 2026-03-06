@@ -1,0 +1,24 @@
+# monday.com Report
+
+## 1. Target Users & Demographics
+- **Business Size:** Highly scalable, catering to everyone from small startups and freelancers to mid-market companies and large-scale enterprises.
+- **Key Roles & Teams:** Project managers, marketing agencies, software development teams, HR, sales (via monday CRM), IT, and operations.
+- **User Profile:** It is designed for users who want an intuitive, highly visual, and color-coded environment. It appeals to non-technical users looking for simple setup (no-code/low-code) while still offering the depth required by technical roles.
+- **Industry:** Industry-agnostic. Pre-built templates allow it to be adopted by real estate, marketing, software engineering, construction, education, and more.
+
+## 2. Main Features
+- **Visual Workspaces (Boards):** The core interface utilizes Boards, Groups, Items, and highly customizable Columns (status, numbers, dates, files, etc.) to track any process.
+- **Flexible Views:** Allows users to view board data in various formats, such as Kanban boards, Gantt charts, Timelines, Calendars, Maps, and Workload views.
+- **Automations:** Easy-to-use "If this, then that" automation recipes to eliminate repetitive manual work (e.g., automatically assigning a team member when a status changes).
+- **Integrations:** Seamlessly connects with third-party apps like Slack, Google Workspace, Jira, Microsoft Teams, Zendesk, and GitHub.
+- **Dashboards & Reporting:** High-level widget-based dashboards that pull data across dozens of boards to generate visual reports, KPIs, and overarching business metrics.
+- **Collaboration & WorkDocs:** In-context task commenting, @mentions, file sharing, and built-in collaborative documents that allow live editing and embedded widgets.
+- **Product Suites:** monday.com now offers specialized verticals out of the box, including monday work management, monday sales CRM, and monday dev.
+
+## 3. Current Pricing Overview
+monday.com uses a seat-based pricing model, typically requiring a minimum of 3 seats for paid plans. Costs vary slightly depending on monthly vs. annual billing. The standard tiers are:
+- **Free:** $0 (Up to 2 seats). Includes up to 3 boards, basic templates, and unlimited docs. Ideal for individuals or very small projects.
+- **Basic:** ~$9 - $12 per seat/month. Unlocks unlimited items, unlimited boards, 5GB storage, and unlimited free viewers.
+- **Standard (Most Popular):** ~$12 - $14 per seat/month. Adds Timeline and Gantt views, Calendar view, guest access, and up to 250 automation/integration actions per month.
+- **Pro:** ~$19 - $24 per seat/month. Adds time tracking, advanced chart views, private boards and docs, formula columns, and up to 25,000 automation/integration actions per month.
+- **Enterprise:** Custom pricing (contact sales). Includes enterprise-grade security & governance, advanced reporting, multi-level permissions, tailored onboarding, and premium support.

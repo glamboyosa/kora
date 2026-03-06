@@ -1,0 +1,21 @@
+# Trello: Research Report
+
+## 1. Target Users & Demographics
+- **Target Audience:** Startups, small-to-medium businesses (SMBs), freelancers, and large enterprise teams. It spans across various industries, including software development, marketing, HR, real estate, and education.
+- **Demographics:** Typically tech-savvy professionals, creatives, and managers aged 18-50 who prefer visual and intuitive task management. It is particularly popular among remote and distributed teams requiring seamless collaboration.
+- **Common Use Cases:** Agile/scrum project tracking, content calendars, personal to-do lists, recruitment pipelines, event planning, and lightweight CRM.
+
+## 2. Main Features
+- **Kanban-Style Boards:** Trello’s primary interface focuses on Boards, Lists, and Cards to visually organize work phases and sprint progress.
+- **Detailed Cards:** individual tasks are stored as cards that can hold descriptions, checklists, due dates, assigned members, color-coded labels, and file attachments.
+- **Multiple Project Views (Premium/Enterprise):** Beyond the classic Kanban board, Trello offers alternative visual perspectives including Timeline, Table, Calendar, Dashboard, and Map views.
+- **Butler Automation:** A built-in, no-code automation system that allows users to create rules, custom buttons, and scheduled commands to handle repetitive tasks automatically.
+- **Power-Ups (Integrations):** Extensive integration capabilities via Power-Ups to connect Trello with third-party apps like Google Drive, Slack, Jira, GitHub, Confluence, and Mailchimp.
+- **Collaboration & Communication:** Real-time updates across devices, card-level comment threads, @mentions, and activity logs to keep teams fully aligned.
+
+## 3. Current Pricing
+Trello utilizes a freemium pricing model, with tiers based on organizational needs and feature complexity:
+- **Free Plan ($0):** Suitable for individuals or small groups. Includes unlimited cards, up to 10 boards per Workspace, unlimited Power-Ups, and basic automation (250 runs/month).
+- **Standard Plan ($5 per user/month, billed annually):** Geared toward teams that need to scale their collaboration. Unlocks unlimited boards, advanced checklists, custom fields, and 1,000 automation runs/month.
+- **Premium Plan ($10 per user/month, billed annually):** Destined for teams managing complex or multiple projects. It adds the alternative project views (Timeline, Calendar, Dashboard, etc.), Workspace-level templates, enhanced admin/security features, and unlimited automation runs.
+- **Enterprise Plan ($17.50 per user/month, billed annually for starting brackets):** Intended for large-scale organizations. Includes unlimited Workspaces, strict organization-wide permissions, organization-wide board management, single sign-on (SSO), and priority support. (Note: Per-user pricing scales down as the number of seats increases.)

@@ -1,0 +1,100 @@
+<div class="min-h-screen bg-background flex flex-col">
+  <div id="index-models-cache" phx-hook="ModelsCache" class="hidden" aria-hidden="true"></div>
+  <!-- Navbar -->
+  <header class="border-b bg-card">
+    <div class="container mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center gap-2 font-bold text-xl">
+        <div class="w-8 h-8 bg-primary rounded-lg flex items-center justify-center text-primary-foreground">
+          K
+        </div>
+        <span>Kora</span>
+      </div>
+      <div class="flex items-center gap-4 text-sm text-muted-foreground">
+        <span>v0.1.0</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1 container mx-auto px-4 py-8 max-w-5xl">
+    <div class="space-y-12">
+      
+<!-- Hero / Input Section -->
+      <div class="flex flex-col items-center space-y-6 text-center pt-10">
+        <h1 class="text-4xl font-extrabold tracking-tight lg:text-5xl">
+          What can I do for you today?
+        </h1>
+        <p class="text-xl text-muted-foreground max-w-2xl">
+          I can research topics, write code, and automate tasks on your computer.
+        </p>
+
+        <div class="w-full max-w-2xl mt-8">
+          <.form for={@form} phx-submit="create_session" class="relative group">
+            <div class="relative bg-card rounded-xl border shadow-sm group-focus-within:ring-2 group-focus-within:ring-primary/20 transition-all overflow-hidden">
+              <textarea
+                name="goal"
+                required
+                placeholder="Describe your task..."
+                class="w-full min-h-[120px] p-4 bg-transparent border-0 resize-none focus:ring-0 text-lg placeholder:text-muted-foreground/50"
+                autofocus
+              ></textarea>
+
+              <div class="flex items-center justify-between p-3 bg-muted/30 border-t">
+                <div class="flex items-center gap-2">
+                  <select
+                    name="model"
+                    id="new-session-model"
+                    class="h-8 text-xs rounded-md border border-input bg-background px-2 focus:ring-0 focus:border-primary"
+                  >
+                    <%= for {label, value} <- @available_models do %>
+                      <option value={value} selected={@form[:model].value == value}>{label}</option>
+                    <% end %>
+                  </select>
+                </div>
+                <button
+                  type="submit"
+                  class="inline-flex items-center justify-center rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground hover:bg-primary/90 transition-colors disabled:opacity-50"
+                >
+                  Start Session <.icon name="hero-arrow-right" class="ml-2 w-4 h-4" />
+                </button>
+              </div>
+            </div>
+          </.form>
+        </div>
+      </div>
+      
+<!-- Recent Sessions -->
+      <%= if @sessions != [] do %>
+        <div class="space-y-4">
+          <h2 class="text-lg font-semibold flex items-center gap-2">
+            <.icon name="hero-clock" class="w-5 h-5" /> Recent Activity
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <%= for session <- @sessions do %>
+              <.link navigate={~p"/sessions/#{session.id}"} class="block group">
+                <div class="bg-card hover:border-primary/50 transition-colors rounded-lg border p-4 h-full flex flex-col">
+                  <div class="flex items-start justify-between mb-2">
+                    <div class="font-medium line-clamp-2 pr-4">{session.goal}</div>
+                    <span class={"px-2 py-0.5 rounded-full text-[10px] uppercase font-bold tracking-wide border " <> 
+                      if(session.status == "active", do: "bg-green-500/10 text-green-600 border-green-200", else: "bg-muted text-muted-foreground border-transparent")}>
+                      {session.status}
+                    </span>
+                  </div>
+                  <div class="mt-auto pt-4 flex items-center justify-between text-xs text-muted-foreground">
+                    <div class="flex items-center gap-1">
+                      <.icon name="hero-calendar" class="w-3 h-3" />
+                      {Calendar.strftime(session.inserted_at, "%b %d, %H:%M")}
+                    </div>
+                    <div class="group-hover:translate-x-1 transition-transform">
+                      View &rarr;
+                    </div>
+                  </div>
+                </div>
+              </.link>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

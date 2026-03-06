@@ -1,0 +1,43 @@
+# Basecamp Research Report: Pricing, Features, and Target Users
+
+Basecamp is a well-known project management and team communication software designed to help businesses organize work, communicate effectively, and track progress. Below is a comprehensive overview of its pricing, main features, and target users.
+
+## 1. Current Pricing
+
+Basecamp offers a straightforward pricing structure designed to accommodate different team sizes and needs. Unlike many competitors that rely heavily on per-user pricing variants across multiple complex tiers, Basecamp simplifies it into a few core options:
+
+*   **Basecamp Free:** 
+    *   Cost: $0
+    *   Details: A free, limited version designed for very small needs, allowing users to run **one project at a time**.
+*   **Basecamp / user:** 
+    *   Cost: **$15 per user / month**
+    *   Details: Ideal for growing teams. You only pay for actual employees on your team. You can invite guests, clients, and external collaborators for free without consuming a paid seat.
+*   **Basecamp Pro Unlimited:** 
+    *   Cost: **$299 per month** (billed annually)
+    *   Details: A flat-fee enterprise or large-team option that includes unlimited users, unlimited projects, 5TB of file storage, and premium support. Paying up front for the year makes it a predictable organizational expense regardless of team growth.
+
+## 2. Main Features
+
+Basecamp is famous for combining project management and team communication into a single interface, reducing the need for scattered tools like Slack and email chains. Its core features include:
+
+*   **Message Board:** A dedicated space for pitching ideas, giving updates, or making announcements, keeping conversations organized and on-topic rather than lost in chat feeds.
+*   **To-Do Lists:** Simple but powerful task tracking. Users can assign tasks, set due dates, and organize work into distinct lists.
+*   **Campfire (Group Chat):** A real-time chat room built into every project for quick, casual communication, distinct from formal message board posts.
+*   **Docs & Files:** A centralized hub to share documents, files, and images so everyone on the project has access to the most updated materials.
+*   **Schedule:** A shared project calendar for tracking important dates, milestones, and deadlines. It integrates with external calendars like Google Calendar, iCal, and Outlook.
+*   **Automatic Check-Ins:** A unique feature replacing daily stand-ups and status meetings. It prompts team members on a recurring basis (e.g., "What did you work on today?") and aggregates their answers into a single thread.
+*   **Client Access:** Basecamp allows users to invite external clients into projects, giving them specific viewing/commenting rights while keeping internal work private.
+*   **The "Lineup":** A high-level visual timeline of all projects in progress, giving managers a bird's-eye view of team capacity and project timelines.
+
+## 3. Target Users & Demographics
+
+Basecamp is built on the philosophy of simplicity, asynchronous communication, and work-life balance. Its target users generally fall into the following categories:
+
+*   **Small to Medium-Sized Businesses (SMBs):** Basecamp is incredibly popular among SMBs that need an "all-in-one" operating system to organize work without the overhead of learning complex Enterprise Project Management tools.
+*   **Remote & Distributed Teams:** Because of their strong advocacy for asynchronous communication (Message Boards, Check-Ins) over synchronous disruptions (constant pings and meetings), Basecamp is heavily utilized by remote-first companies.
+*   **Creative Agencies & Consultancies:** The distinct **Client Access** capabilities and separated internal/external views make it ideal for marketing, web design, and consulting agencies that collaborate closely with clients on deliverables.
+*   **Marketing & Advertising Industry:** Market share data indicates high adoption within the marketing and advertising sectors, largely because these teams juggle multiple campaigns (projects) and require a mix of file sharing, client approval, and task management.
+*   **Organizations Looking for Cost Certainty:** Finding a scalable internal tool can be difficult as a company grows. Basecamp's **$299/mo Pro Unlimited** tier is highly favored by mid-to-large businesses looking for flat-rate pricing to avoid runaway per-seat software costs as they scale.
+
+***
+*Report generated for Basecamp analysis.*

@@ -1,0 +1,68 @@
+# The directory Mix will write compiled artifacts to.
+/_build/
+
+# If you run "mix test --cover", coverage assets end up here.
+/cover/
+
+# The directory Mix downloads your dependencies sources to.
+/deps/
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+/doc/
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+*.ez
+
+# Temporary files, for example, from tests.
+/tmp/
+
+# Ignore package tarball (built via "mix hex.build").
+kora-*.tar
+
+# Ignore assets that are produced by build tools.
+/priv/static/assets/
+
+# Ignore digested assets cache.
+/priv/static/cache_manifest.json
+
+# In case you use Node.js/npm, you want to ignore these.
+npm-debug.log
+/assets/node_modules/
+
+# Session workspace (tool-written files, cleaned up when root agent completes)
+/workspace/
+
+# Database files
+/kora_dev.db
+/kora_dev.db-shm
+/kora_dev.db-wal
+/kora_test.db
+/kora_test.db-shm
+/kora_test.db-wal
+/kora.db
+/kora.db-shm
+/kora.db-wal
+*.db
+*.db-*
+
+# Configuration
+/config/*.secret.exs
+/.env
+/.env.*.local
+
+# Editor / IDE
+/.elixir_ls
+/.vscode
+/.idea
+*.swp
+*.swo
+*~
+.DS_Store
+
+.env

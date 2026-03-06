@@ -1,0 +1,24 @@
+# Wrike Research Report
+
+## Target Users and Demographics
+Wrike is designed as a highly scalable and robust project management platform. Its ideal customer profile and target demographics include:
+*   **Company Size:** Medium to large enterprises, though they offer plans for small and growing teams.
+*   **Roles & Departments:** Project Managers (PMOs), Marketing teams, IT & Engineering, Professional Services, and Creative agencies.
+*   **Needs/Demographics:** Organizations looking for cross-functional collaboration, advanced tracking capabilities, and customizable workflows to support complex business processes.
+
+## Main Features
+Wrike functions as a comprehensive, centralized hub. Its core features include:
+*   **Versatile Project Views:** Gantt charts, Kanban boards, table views, and customizable dashboards.
+*   **Wrike AI (Generative AI):** Built-in personal AI agents that help summarize threads, generate subtasks, automate repetitive tasks, and identify project risks, aiming to save users up to 10 hours a week.
+*   **Custom Workflows & Automations:** Users can create custom request forms, blueprint templates, and robust automation rules tailored to specific departmental needs.
+*   **Advanced Resource Management:** Capacity planning, time tracking, and workload balancing.
+*   **Top-Tier Collaboration:** Real-time document editing, proofing, and integrated approval processes natively within the platform.
+*   **Comprehensive Analytics:** Real-time visibility through highly customizable reports and portfolio tracking.
+
+## Current Pricing (2024 / 2025)
+Wrike offers a tiered pricing structure designed to scale with the customer's needs:
+*   **Free Plan ($0):** Basic task management functions, ideal for very small teams just getting started.
+*   **Team Plan (~$9.80 - $10 per user/month):** Aimed at growing teams (typically 2 to 25 users). Provides unlimited projects, custom fields, and interactive Gantt charts.
+*   **Business Plan ($24.80 per user/month):** Built for larger teams (5 to 200 users) needing advanced features. Includes folder structures, custom item types, time tracking, graphical analytics, and extensive automation.
+*   **Enterprise Plan (Custom Pricing):** Designed for large organizations. Built with advanced security (SSO, 2FA), admin controls, and audit reports for full platform governance.
+*   **Pinnacle Plan (Custom Pricing):** The top-tier offering for teams managing highly complex projects. Includes advanced resource management, budgeting, BI integrations, and premium analytics capabilities.
