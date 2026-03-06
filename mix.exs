@@ -11,7 +11,8 @@ defmodule Kora.MixProject do
       aliases: aliases(),
       deps: deps(),
       compilers: [:phoenix_live_view] ++ Mix.compilers(),
-      listeners: [Phoenix.CodeReloader]
+      listeners: [Phoenix.CodeReloader],
+      releases: releases()
     ]
   end
 
@@ -67,7 +68,23 @@ defmodule Kora.MixProject do
       {:salad_ui, "~> 0.14"},
       {:dotenvy, "~> 0.8"},
       {:earmark, "~> 1.4"},
+      {:burrito, "~> 1.0"},
       {:igniter, "~> 0.5", only: [:dev, :test]}
+    ]
+  end
+
+  def releases do
+    [
+      kora: [
+        steps: [:assemble, &Burrito.wrap/1],
+        burrito: [
+          targets: [
+            macos: [os: :darwin, cpu: :aarch64],
+            linux: [os: :linux, cpu: :x86_64],
+            windows: [os: :windows, cpu: :x86_64]
+          ]
+        ]
+      ]
     ]
   end
 
