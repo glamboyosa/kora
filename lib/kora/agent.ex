@@ -3,7 +3,6 @@ defmodule Kora.Agent do
   require Logger
   alias Kora.Repo
   alias Kora.Agents
-  alias Kora.Agents.Agent, as: AgentSchema
   alias Kora.Messages.Message
   alias Kora.ToolResults.ToolResult
 
@@ -36,13 +35,8 @@ defmodule Kora.Agent do
   # --- Client API ---
 
   def start_link(opts) do
-    # opts needs :id
     id = Keyword.get(opts, :id)
-    # name = {:via, Registry, {Kora.AgentRegistry, id}}
-    # We don't have a Registry yet. Using global name or via Supervisor?
-    # Spec says "No two agents in same session share name".
-    # But GenServer name usually involves ID.
-    # We'll rely on AgentSupervisor to start it.
+    # Registered by id so we can look up and send casts (add_message, retry) without holding a pid.
     GenServer.start_link(__MODULE__, opts, name: via_tuple(id))
   end
 
@@ -50,7 +44,7 @@ defmodule Kora.Agent do
 
   def add_message(agent_id, content) do
     # 1. Write to DB via Context
-    {:ok, agent} = Agents.add_user_message(agent_id, content)
+    {:ok, _agent} = Agents.add_user_message(agent_id, content)
 
     # 2. Notify process if alive
     case Registry.lookup(Kora.AgentRegistry, agent_id) do
@@ -58,29 +52,13 @@ defmodule Kora.Agent do
         GenServer.cast(pid, {:new_user_message, content})
 
       [] ->
-        # If not alive, Supervisor might restart it?
-        # Or we should start it if it was stopped.
-        # If it was :done, it might have stopped normal exit?
-        # My Agent implementation is :transient restart.
-        # If it finishes, it stops?
-        # Spec: "If status is :done... do not restart loop, just hold state"
-        # Wait, if `restart: :transient`, it exits normal on :stop?
-        # If I want it to stay alive to receive messages, I should not stop it.
-        # Currently `finalize` does `{:noreply, %{state | status: :done}}`. It does NOT stop.
-        # So it should be alive.
-        # Unless it crashed.
-
-        # If it crashed and is restarting, it will read from DB in init.
-
-        # If it's not alive (e.g. system restart), we need to ensure it starts.
-        # Orchestrator or UI should ensure it starts?
-        # We can try to start it.
+        # Process not running (e.g. app restarted). Start it so it loads state from DB and processes the new message.
         Kora.AgentSupervisor.start_agent(id: agent_id)
     end
   end
 
   def retry(agent_id) do
-    {:ok, agent} =
+    {:ok, _agent} =
       Agents.update_agent(Agents.get_agent!(agent_id), %{status: :running, error: nil})
 
     case Registry.lookup(Kora.AgentRegistry, agent_id) do
@@ -215,12 +193,7 @@ defmodule Kora.Agent do
 
   @impl true
   def handle_info({:tool_result, tool_call_id, result}, state) do
-    # Tool completed
-    # result is {:ok, output} or {:error, reason}
-
-    # Find the tool call in pending (if we tracked it, but we just use ID)
-    # Append to messages
-
+    # We track pending tool call IDs in state; when all are received we re-enter the loop.
     output =
       case result do
         {:ok, val} ->
@@ -241,15 +214,8 @@ defmodule Kora.Agent do
     # Persist message
     persist_message(state.id, tool_msg_map)
 
-    # Update state
     new_messages = state.messages ++ [tool_msg_map]
     new_state = %{state | messages: new_messages}
-
-    # Remove from pending if we tracked it?
-    # We wait for ALL pending tool calls from the last turn?
-    # Actually, execute_tools spawns tasks.
-    # We should track how many we are waiting for.
-    # state.pending_tool_calls could be a map or count.
 
     pending = List.delete(state.pending_tool_calls, tool_call_id)
 
@@ -503,42 +469,41 @@ defmodule Kora.Agent do
     })
   end
 
-  defp persist_tool_start(agent_id, name, args, _call_id) do
-    # We don't have call_id in tool_results table, just ID?
-    # But we need to update it later.
-    # We can use call_id as ID? Or store call_id?
-    # Schema `tool_results` has `id` (binary_id).
-    # Spec: "Write every tool call to tool_results... and update it".
-    # We assume we create a record.
-    # But how to link `call_id` from LLM to DB record?
-    # We didn't add `call_id` to `tool_results` table in migration!
-    # I should add `call_id` column to `tool_results`.
-    # For now, I'll skip persisting tool result *start* or just create it and ignore update matching if I can't.
-    # Actually, I'll assume I can't update it easily without ID.
-    # I'll edit migration? No, migration already ran.
-    # I'll create a new migration to add `call_id` to `tool_results`.
-    nil
+  defp persist_tool_start(agent_id, tool_name, args, call_id) do
+    ToolResult.changeset(%ToolResult{}, %{
+      agent_id: agent_id,
+      call_id: call_id,
+      tool_name: tool_name,
+      input: args
+    })
+    |> Repo.insert!()
   end
 
   defp persist_tool_end(agent_id, call_id, result, duration) do
-    # See above. Without call_id column, I can't look it up easily.
-    # I'll just insert a new record for now.
     {output, error} =
       case result do
         {:ok, val} -> {val, nil}
         {:error, e} -> {nil, inspect(e)}
       end
 
-    Repo.insert!(%ToolResult{
-      agent_id: agent_id,
-      # We lost name context here unless passed
-      tool_name: "unknown",
-      # Lost input
-      input: %{},
-      output: output,
-      error: error,
-      duration_ms: duration
-    })
+    case Repo.get_by(ToolResult, agent_id: agent_id, call_id: call_id) do
+      nil ->
+        # Start was not persisted (e.g. before call_id existed); insert full row.
+        Repo.insert!(%ToolResult{
+          agent_id: agent_id,
+          call_id: call_id,
+          tool_name: "unknown",
+          input: %{},
+          output: output,
+          error: error,
+          duration_ms: duration
+        })
+
+      row ->
+        row
+        |> Ecto.Changeset.change(%{output: output, error: error, duration_ms: duration})
+        |> Repo.update!()
+    end
   end
 
   defp update_response(current, content_chunk, tool_calls_chunk) do

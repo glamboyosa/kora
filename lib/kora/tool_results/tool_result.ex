@@ -6,8 +6,8 @@ defmodule Kora.ToolResults.ToolResult do
   @foreign_key_type :binary_id
 
   schema "tool_results" do
+    field :call_id, :string
     field :tool_name, :string
-    # JSON
     field :input, :map
     field :output, :string
     field :error, :string
@@ -20,7 +20,7 @@ defmodule Kora.ToolResults.ToolResult do
 
   def changeset(tool_result, attrs) do
     tool_result
-    |> cast(attrs, [:agent_id, :tool_name, :input, :output, :error, :duration_ms])
+    |> cast(attrs, [:agent_id, :call_id, :tool_name, :input, :output, :error, :duration_ms])
     |> validate_required([:agent_id, :tool_name])
   end
 end
