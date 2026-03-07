@@ -204,14 +204,19 @@ defmodule Kora.Agent do
           "Error: #{inspect(reason)}"
       end
 
-    # Create Tool message
+    tool_name =
+      case Repo.get_by(ToolResult, agent_id: state.id, call_id: tool_call_id) do
+        nil -> "unknown"
+        row -> row.tool_name
+      end
+
     tool_msg_map = %{
       role: "tool",
       tool_call_id: tool_call_id,
+      tool_name: tool_name,
       content: output
     }
 
-    # Persist message
     persist_message(state.id, tool_msg_map)
 
     new_messages = state.messages ++ [tool_msg_map]
@@ -463,9 +468,10 @@ defmodule Kora.Agent do
     Repo.insert!(%Message{
       agent_id: agent_id,
       role: msg_map.role,
-      # could be nil for tool calls
       content: msg_map[:content],
-      tool_calls: msg_map[:tool_calls] || []
+      tool_calls: msg_map[:tool_calls] || [],
+      tool_call_id: msg_map[:tool_call_id],
+      tool_name: msg_map[:tool_name]
     })
   end
 

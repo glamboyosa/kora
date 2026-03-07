@@ -357,6 +357,18 @@ defmodule KoraWeb.SessionLive.Show do
   # Catch-all for other events we don't handle yet
   def handle_info(_, socket), do: {:noreply, socket}
 
+  def tool_message_label("spawn_agent"), do: "Subagent result"
+  def tool_message_label("file_read"), do: "File read"
+  def tool_message_label("file_write"), do: "File write"
+  def tool_message_label("web_search"), do: "Web search"
+  def tool_message_label(n) when is_binary(n) and n != "", do: n
+  def tool_message_label(_), do: "Tool result"
+
+  def tool_message_label_with_prefix(nil), do: "Tool result"
+  def tool_message_label_with_prefix(""), do: "Tool result"
+  def tool_message_label_with_prefix("spawn_agent"), do: "Subagent result"
+  def tool_message_label_with_prefix(name), do: "Tool · #{tool_message_label(name)}"
+
   attr :nodes, :list, required: true
   attr :selected_id, :string, default: nil
   attr :depth, :integer, default: 0

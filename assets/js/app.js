@@ -27,20 +27,24 @@ import topbar from "../vendor/topbar"
 
 const ScrollDown = {
   mounted() {
+    this._paused = false;
+
     this.handleEvent("scroll", () => {
       this.el.scrollTop = this.el.scrollHeight;
     });
     this.el.scrollTop = this.el.scrollHeight;
 
     this.observer = new MutationObserver(() => {
-      this.el.scrollTop = this.el.scrollHeight;
+      if (!this._paused) this.el.scrollTop = this.el.scrollHeight;
     });
     this.observer.observe(this.el, { childList: true, subtree: true, characterData: true });
   },
   updated() {
     if (window.__koraPreserveScroll != null) {
+      this._paused = true;
       this.el.scrollTop = window.__koraPreserveScroll;
       window.__koraPreserveScroll = null;
+      setTimeout(() => { this._paused = false; }, 150);
     }
   },
   destroyed() {
@@ -48,7 +52,6 @@ const ScrollDown = {
   }
 };
 
-// Saves scroll position before a toggle so ScrollDown.updated() can restore it (expand/collapse won't jump).
 const PreserveScrollOnToggle = {
   mounted() {
     this.el.addEventListener("click", () => {
