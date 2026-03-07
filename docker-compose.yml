@@ -1,0 +1,19 @@
+# Run Kora web app. Set OPENROUTER_API_KEY (required). Optional: EXA_API_KEY.
+# Generate SECRET_KEY_BASE: mix phx.gen.secret
+services:
+  web:
+    build: .
+    ports:
+      - "4000:4000"
+    environment:
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY?Set OPENROUTER_API_KEY}
+      # For local/try-it use the default; for real deployment set SECRET_KEY_BASE (mix phx.gen.secret)
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE:-aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa}
+      DATABASE_PATH: /app/data/kora.db
+      PHX_HOST: localhost
+    volumes:
+      - kora_data:/app/data
+    restart: unless-stopped
+
+volumes:
+  kora_data: {}

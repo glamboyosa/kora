@@ -38,6 +38,9 @@ npm-debug.log
 # Session workspace (tool-written files, cleaned up when root agent completes)
 /workspace/
 
+# Agent-written report/output files (e.g. asana_report.txt, basecamp_report.txt)
+*_report.txt
+
 # Database files
 /kora_dev.db
 /kora_dev.db-shm
@@ -69,5 +72,7 @@ npm-debug.log
 ARCHITECTURE_DEEP_DIVE.md
 INTERVIEW_DEMO_GUIDE.md
 install.sh
-
+GITHUB_DESCRIPTION.txt
+ELEVATOR_PITCH.md
 .env
+agent_reference.md

@@ -37,13 +37,22 @@ defmodule Kora.Application do
       # Give endpoint a moment to bind
       Process.sleep(1000)
 
-      case KoraWeb.Endpoint.http_info() do
-        {:ok, info} ->
-          port = info[:port]
-          IO.puts("KORA_PORT=#{port}")
+      # Attempt to find the bound port.
+      # In dev, it is fixed at 4000.
+      # In prod with port 0, we would need to query ThousandIsland.
 
-        _ ->
-          :ok
+      port =
+        case Application.get_env(:kora, KoraWeb.Endpoint)[:http][:port] do
+          0 ->
+            # Fallback to 0 if dynamic, printed to stdout later if possible
+            0
+
+          p ->
+            p
+        end
+
+      if port > 0 do
+        IO.puts("KORA_PORT=#{port}")
       end
     end)
 
