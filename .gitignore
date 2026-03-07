@@ -65,4 +65,9 @@ npm-debug.log
 *~
 .DS_Store
 
+# Documentation & Scripts
+ARCHITECTURE_DEEP_DIVE.md
+INTERVIEW_DEMO_GUIDE.md
+install.sh
+
 .env

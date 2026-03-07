@@ -34,7 +34,7 @@ defmodule Kora.Orchestrator do
           goal: goal,
           system_prompt: root_system_prompt(),
           # Default tools
-          tools: ["web_search", "file_read", "file_write", "spawn_agent"],
+          tools: default_tools(),
           started_at: DateTime.utc_now()
         }
 
@@ -55,12 +55,22 @@ defmodule Kora.Orchestrator do
     end
   end
 
+  defp default_tools do
+    base_tools = ["file_read", "file_write", "spawn_agent"]
+
+    if Application.get_env(:kora, :exa_api_key) do
+      ["web_search" | base_tools]
+    else
+      base_tools
+    end
+  end
+
   defp root_system_prompt do
     """
     You are Kora's root orchestration agent. You receive a goal and are responsible
     for completing it — either directly or by delegating subtasks to subagents.
 
-    Available tools: web_search, file_read, file_write, spawn_agent.
+    Available tools: {{tool_list}}
 
     When to spawn subagents:
     - The goal has clearly separable subtasks that benefit from parallelism
@@ -81,5 +91,6 @@ defmodule Kora.Orchestrator do
     Think step by step before your first tool call. Decide whether to decompose.
     Then act.
     """
+    |> String.replace("{{tool_list}}", Enum.join(default_tools(), ", "))
   end
 end
