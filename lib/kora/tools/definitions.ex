@@ -33,11 +33,22 @@ defmodule Kora.Tools.Definitions do
       type: "function",
       function: %{
         name: "file_read",
-        description: "Read the contents of a file from the local filesystem.",
+        description: """
+        Read the contents of a file from the local filesystem.
+        Optionally filter lines by a pattern (grep-like): only lines containing the pattern are returned, with line numbers.
+        """,
         parameters: %{
           type: "object",
           properties: %{
-            path: %{type: "string", description: "Absolute or home-relative file path"}
+            path: %{
+              type: "string",
+              description: "File path: absolute, or relative to session workspace. Use ~/ for user home (e.g. ~/Documents, ~/Downloads, ~/.bashrc). Works on macOS, Linux, and Windows."
+            },
+            pattern: %{
+              type: "string",
+              description:
+                "Optional. If set, only lines containing this string are returned (case-sensitive), with line numbers. Omit to read the full file."
+            }
           },
           required: ["path"]
         }
@@ -54,7 +65,10 @@ defmodule Kora.Tools.Definitions do
         parameters: %{
           type: "object",
           properties: %{
-            path: %{type: "string", description: "Absolute or home-relative file path"},
+            path: %{
+              type: "string",
+              description: "File path: absolute, or relative to session workspace. Use ~/ for user home (e.g. ~/Documents, ~/Downloads). Works on macOS, Linux, and Windows."
+            },
             content: %{type: "string", description: "Content to write"}
           },
           required: ["path", "content"]

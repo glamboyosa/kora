@@ -56,6 +56,13 @@ defmodule Kora.Tools do
 
   defp session_workspace_dir(_), do: nil
 
+  # Cross-platform: ~/Documents, ~/Downloads etc. work on macOS, Linux, and Windows.
+  defp user_home_path(path) when is_binary(path) do
+    home = System.user_home() || Path.expand("~")
+    rest = path |> String.trim_leading("~") |> String.trim_leading("/") |> String.trim_leading("\\")
+    if rest == "", do: home, else: Path.join(home, rest)
+  end
+
   @doc """
   Deletes the session workspace directory (all files written by tools in this session).
   Call when the root agent completes so created files are cleaned up.
@@ -127,13 +134,41 @@ defmodule Kora.Tools do
 
   defp file_read(args, context \\ nil) do
     path = args["path"]
+    pattern = args["pattern"]
     base = if context && context[:session_id], do: session_workspace_dir(context[:session_id]), else: nil
-    full_path = if base, do: Path.join(base, path), else: Path.expand(path)
+    # Paths starting with ~ → user home (Documents, Downloads, etc.) on any OS.
+    full_path =
+      cond do
+        String.starts_with?(path, "~") -> user_home_path(path)
+        base -> Path.join(base, path)
+        true -> Path.expand(path)
+      end
 
     case File.read(full_path) do
-      {:ok, content} -> {:ok, content}
+      {:ok, content} ->
+        if pattern != nil && pattern != "" do
+          lines = String.split(content, "\n", trim: false)
+          matched =
+            lines
+            |> Enum.with_index(1)
+            |> Enum.filter(fn {line, _} -> String.contains?(line, pattern) end)
+          n = length(matched)
+          matching =
+            matched
+            |> Enum.map(fn {line, num} -> "  #{num}: #{line}" end)
+            |> Enum.join("\n")
+          if n == 0 do
+            {:ok, "(no lines matching \"#{pattern}\" in #{path})"}
+          else
+            {:ok, "Matches for \"#{pattern}\" in #{path} (#{n} line(s)):\n#{matching}"}
+          end
+        else
+          {:ok, content}
+        end
+
       {:error, :enoent} ->
         {:error, "File not found: #{path}. Resolved to: #{full_path}. (Files are read from the session workspace; ensure the file was written in this session.)"}
+
       {:error, reason} ->
         {:error, "Failed to read file #{full_path}: #{inspect(reason)}"}
     end
@@ -143,7 +178,12 @@ defmodule Kora.Tools do
     path = args["path"]
     content = args["content"]
     base = if context && context[:session_id], do: session_workspace_dir(context[:session_id]), else: nil
-    full_path = if base, do: Path.join(base, path), else: Path.expand(path)
+    full_path =
+      cond do
+        String.starts_with?(path, "~") -> user_home_path(path)
+        base -> Path.join(base, path)
+        true -> Path.expand(path)
+      end
     File.mkdir_p!(Path.dirname(full_path))
 
     case File.write(full_path, content) do

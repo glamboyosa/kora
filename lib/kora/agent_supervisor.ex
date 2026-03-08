@@ -11,11 +11,9 @@ defmodule Kora.AgentSupervisor do
   end
 
   def start_agent(opts) do
-    # opts should include `id` and `module` (Kora.Agent).
-    # The id is needed to restore the agent from the DB.
-    # We use a unique name for the process based on id.
-
-    # agent_id = Keyword.get(opts, :id)
+    # opts must include :id (UUID from Kora.Agents.create_agent / Repo.insert).
+    # The Agent GenServer registers under this id in the Registry so it can be addressed
+    # by UUID; init/1 loads state from the DB using this id.
     DynamicSupervisor.start_child(__MODULE__, {Kora.Agent, opts})
   end
 
